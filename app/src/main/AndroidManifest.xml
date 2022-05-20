@@ -10,13 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppSale18022022">
         <activity
-            android:name=".presentation.views.MainActivity"
-            android:exported="true">
+            android:name=".presentation.views.authentications.sign_in.SignInActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.views.MainActivity"
+            android:exported="false">
+
         </activity>
     </application>
 
