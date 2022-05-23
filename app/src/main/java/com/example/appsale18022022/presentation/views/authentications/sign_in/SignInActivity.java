@@ -1,10 +1,7 @@
 package com.example.appsale18022022.presentation.views.authentications.sign_in;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -12,15 +9,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.appsale18022022.R;
 import com.example.appsale18022022.data.datasources.remote.AppResource;
 import com.example.appsale18022022.data.models.User;
-import com.example.appsale18022022.data.repositories.AuthenticationRepository;
-import com.example.appsale18022022.presentation.views.MainActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignInActivity extends AppCompatActivity {
@@ -44,17 +38,14 @@ public class SignInActivity extends AppCompatActivity {
         initView();
 
         event();
-
     }
 
     private void initView() {
         setStatusBar();
-
         signInViewModel = new ViewModelProvider(this).get(SignInViewModel.class);
     }
 
     private void event() {
-
         // Observer data
         signInViewModel.getUserData().observe(this, new Observer<AppResource<User>>() {
             @Override
@@ -72,7 +63,6 @@ public class SignInActivity extends AppCompatActivity {
                         layoutLoading.setVisibility(View.GONE);
                         break;
                 }
-
             }
         });
 
@@ -89,7 +79,6 @@ public class SignInActivity extends AppCompatActivity {
                 signInViewModel.login(email, password);
             }
         });
-
     }
 
     private void setStatusBar() {
