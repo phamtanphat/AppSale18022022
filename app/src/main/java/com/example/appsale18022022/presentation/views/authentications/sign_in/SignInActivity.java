@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -61,6 +62,7 @@ public class SignInActivity extends AppCompatActivity {
                         break;
                     case SUCCESS:
                         Toast.makeText(SignInActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        Log.d("BBB",userAppResource.data.toString());
                         layoutLoading.setVisibility(View.GONE);
                         break;
                     case ERROR:

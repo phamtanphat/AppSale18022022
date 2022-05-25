@@ -86,4 +86,18 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userGroup=" + userGroup +
+                ", registerDate='" + registerDate + '\'' +
+                ", address='" + address + '\'' +
+                ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }
