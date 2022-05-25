@@ -8,6 +8,7 @@ public class User {
     private String registerDate;
     private String address;
     private String password;
+    private String token;
 
     public User(String email, String password) {
         this.email = email;
@@ -76,5 +77,13 @@ public class User {
 
     public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

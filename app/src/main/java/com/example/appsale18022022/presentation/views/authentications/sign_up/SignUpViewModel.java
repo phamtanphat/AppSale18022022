@@ -29,7 +29,7 @@ public class SignUpViewModel extends ViewModel {
 
     public void register(String email, String password, String phone, String name, String address) {
         userData.setValue(new AppResource.Loading(null));
-        Call<AppResource<User>> callLogin = repository.register(email, password, phone, name, address);
+        Call<AppResource<User>> callLogin = repository.register(email, password, name, phone, address);
         callLogin.enqueue(new Callback<AppResource<User>>() {
             @Override
             public void onResponse(Call<AppResource<User>> call, Response<AppResource<User>> response) {
