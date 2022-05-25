@@ -16,9 +16,12 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.appsale18022022.R;
+import com.example.appsale18022022.common.SharePref;
 import com.example.appsale18022022.data.datasources.remote.AppResource;
 import com.example.appsale18022022.data.models.User;
 import com.example.appsale18022022.presentation.views.authentications.sign_up.SignUpActivity;
+import com.example.appsale18022022.presentation.views.home.HomeActivity;
+import com.example.appsale18022022.presentation.views.splash.SplashActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignInActivity extends AppCompatActivity {
@@ -62,8 +65,9 @@ public class SignInActivity extends AppCompatActivity {
                         break;
                     case SUCCESS:
                         Toast.makeText(SignInActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        Log.d("BBB",userAppResource.data.toString());
+                        SharePref.getInstance(SignInActivity.this).setToken(userAppResource.data.getToken());
                         layoutLoading.setVisibility(View.GONE);
+                        startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                         break;
                     case ERROR:
                         Toast.makeText(SignInActivity.this, userAppResource.message, Toast.LENGTH_SHORT).show();
