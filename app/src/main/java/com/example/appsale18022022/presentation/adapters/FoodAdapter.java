@@ -71,9 +71,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         public void bind(Context context, Food food) {
             tvName.setText(food.getName());
             tvAddress.setText(food.getAddress());
-            tvPrice.setText(new DecimalFormat("#,###").format(food.getPrice()));
+            tvPrice.setText(new DecimalFormat("#,###").format(food.getPrice()) + " VND");
             Glide.with(context)
-                    .load(AppConstant.BASE_URL + "/" + food.getImg())
+                    .load(AppConstant.BASE_URL  + food.getImg())
                     .placeholder(R.drawable.image_logo)
                     .into(img);
         }
