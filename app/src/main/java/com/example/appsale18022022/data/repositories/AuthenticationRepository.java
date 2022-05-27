@@ -1,5 +1,7 @@
 package com.example.appsale18022022.data.repositories;
 
+import android.content.Context;
+
 import com.example.appsale18022022.data.datasources.remote.ApiService;
 import com.example.appsale18022022.data.datasources.remote.AppResource;
 import com.example.appsale18022022.data.datasources.remote.RetrofitClient;
@@ -10,8 +12,8 @@ import retrofit2.Call;
 public class AuthenticationRepository {
     private ApiService apiService;
 
-    public AuthenticationRepository() {
-        apiService = RetrofitClient.getInstance().getApiService();
+    public AuthenticationRepository(Context context) {
+        apiService = RetrofitClient.getInstance(context).getApiService();
     }
 
     public Call<AppResource<User>> login(String email, String password) {

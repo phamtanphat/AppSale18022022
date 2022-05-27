@@ -5,8 +5,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appsale18022022.R;
@@ -34,7 +36,13 @@ public class SignUpActivity extends AppCompatActivity {
         signUp = findViewById(R.id.sign_up);
         layoutLoading = findViewById(R.id.layout_loading);
 
-        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
+        signUpViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new SignUpViewModel(getApplicationContext());
+            }
+        }).get(SignUpViewModel.class);
         event();
     }
 

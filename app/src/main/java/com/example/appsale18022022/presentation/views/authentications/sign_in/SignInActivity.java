@@ -1,7 +1,9 @@
 package com.example.appsale18022022.presentation.views.authentications.sign_in;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -51,7 +53,13 @@ public class SignInActivity extends AppCompatActivity {
 
     private void initView() {
         setStatusBar();
-        signInViewModel = new ViewModelProvider(this).get(SignInViewModel.class);
+        signInViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new SignInViewModel(getApplicationContext());
+            }
+        }).get(SignInViewModel.class);
     }
 
     private void event() {

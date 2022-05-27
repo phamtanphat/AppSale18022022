@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +43,13 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_home);
 
         listCart = new ArrayList<>();
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new HomeViewModel(getApplicationContext());
+            }
+        }).get(HomeViewModel.class);
         foodAdapter = new FoodAdapter();
         rcvFood.setAdapter(foodAdapter);
         rcvFood.setHasFixedSize(true);
