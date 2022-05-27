@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.views.home.HomeActivity">
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         app:contentInsetEnd="10dp"
         android:id="@+id/toolbar_home"
         android:layout_width="match_parent"
