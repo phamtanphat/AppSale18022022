@@ -76,7 +76,14 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+
         viewModel.fetchFoods();
+        foodAdapter.setOnItemClickFood(new FoodAdapter.OnItemClickFood() {
+            @Override
+            public void onClick(int position) {
+                Toast.makeText(HomeActivity.this, position + "", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

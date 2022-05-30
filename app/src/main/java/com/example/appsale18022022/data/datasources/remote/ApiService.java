@@ -1,10 +1,13 @@
 package com.example.appsale18022022.data.datasources.remote;
 
 import com.example.appsale18022022.data.models.Food;
+import com.example.appsale18022022.data.models.Order;
 import com.example.appsale18022022.data.models.User;
 
+import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,4 +22,7 @@ public interface ApiService {
 
     @GET("product")
     Call<AppResource<List<Food>>> fetchFoods();
+
+    @POST("order/add-to-cart")
+    Call<AppResource<Order>> addToCart(@Body HashMap<String,String> body);
 }

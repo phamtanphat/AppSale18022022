@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     List<Food> listFoods;
     Context context;
+    private OnItemClickFood onItemClickFood;
 
     public FoodAdapter() {
         listFoods = new ArrayList<>();
@@ -59,6 +61,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
         TextView tvName, tvAddress, tvPrice;
         ImageView img;
+        AppCompatButton btnAddToCart;
 
         public FoodViewHolder(@NonNull View view) {
             super(view);
@@ -66,6 +69,16 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             tvAddress = view.findViewById(R.id.textViewAddress);
             tvPrice = view.findViewById(R.id.textViewPrice);
             img = view.findViewById(R.id.imageView);
+            btnAddToCart = view.findViewById(R.id.buttonAddCart);
+
+            btnAddToCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onItemClickFood != null) {
+                        onItemClickFood.onClick(getAdapterPosition());
+                    }
+                }
+            });
         }
 
         public void bind(Context context, Food food) {
@@ -79,5 +92,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         }
     }
 
+    public void setOnItemClickFood(OnItemClickFood onItemClickFood){
+        this.onItemClickFood = onItemClickFood;
+    }
+
+    public interface OnItemClickFood {
+        void onClick(int position);
+    }
 
 }
