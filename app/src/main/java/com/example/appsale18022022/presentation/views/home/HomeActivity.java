@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appsale18022022.R;
 import com.example.appsale18022022.data.datasources.remote.AppResource;
 import com.example.appsale18022022.data.models.Food;
+import com.example.appsale18022022.data.models.Order;
 import com.example.appsale18022022.presentation.adapters.FoodAdapter;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     TextView tvCountCart;
     List<Food> listCart;
     Toolbar toolbar;
+    Order order;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,11 +79,31 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getOrder().observe(this, new Observer<AppResource<Order>>() {
+            @Override
+            public void onChanged(AppResource<Order> orderAppResource) {
+                switch (orderAppResource.status) {
+                    case LOADING:
+                        layoutLoading.setVisibility(View.VISIBLE);
+                        break;
+                    case SUCCESS:
+                        layoutLoading.setVisibility(View.GONE);
+                        order = orderAppResource.data;
+                        int quantities = getQuantity(order == null ? null : order.getFoods());
+                        setupBadge(quantities);
+                        break;
+                    case ERROR:
+                        Toast.makeText(HomeActivity.this, orderAppResource.message, Toast.LENGTH_SHORT).show();
+                        layoutLoading.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        });
         viewModel.fetchFoods();
         foodAdapter.setOnItemClickFood(new FoodAdapter.OnItemClickFood() {
             @Override
             public void onClick(int position) {
-                Toast.makeText(HomeActivity.this, position + "", Toast.LENGTH_SHORT).show();
+                viewModel.fetchOrder(foodAdapter.getListFoods().get(position).getId());
             }
         });
     }
@@ -93,7 +115,8 @@ public class HomeActivity extends AppCompatActivity {
         View actionView = menuItem.getActionView();
         tvCountCart = actionView.findViewById(R.id.text_cart_badge);
 
-        setupBadge();
+        int quantities = getQuantity(order == null ? null : order.getFoods());
+        setupBadge(quantities);
 
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,14 +136,23 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupBadge() {
-        if (listCart != null) {
-            if (listCart.size() == 0) {
-                tvCountCart.setVisibility(View.GONE);
-            } else {
-                tvCountCart.setVisibility(View.VISIBLE);
-                tvCountCart.setText(String.valueOf(Math.min(listCart.size(), 99)));
-            }
+    private int getQuantity(List<Food> listFoods) {
+        if (listFoods == null) {
+            return 0;
+        }
+        int totalQuantities = 0;
+        for (Food food: listFoods) {
+            totalQuantities += food.getQuantity();
+        }
+        return totalQuantities;
+    }
+
+    private void setupBadge(int quantities) {
+        if (quantities == 0) {
+            tvCountCart.setVisibility(View.GONE);
+        } else {
+            tvCountCart.setVisibility(View.VISIBLE);
+            tvCountCart.setText(String.valueOf(Math.min(quantities, 99)));
         }
     }
 }

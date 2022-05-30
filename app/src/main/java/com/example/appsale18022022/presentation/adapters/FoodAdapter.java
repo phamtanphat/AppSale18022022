@@ -38,6 +38,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         notifyDataSetChanged();
     }
 
+    public List<Food> getListFoods(){
+        return listFoods;
+    }
+
     @NonNull
     @Override
     public FoodAdapter.FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
